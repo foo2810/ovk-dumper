@@ -17,7 +17,7 @@ class InvalidArgument(Exception):
 		return self.description
 
 def usage():
-	sys.stderr.write("Usage: py readovk.py -s <save_dir> [-f <file> -d <directory>]\n")
+	sys.stderr.write("Usage: python3 ovkdump.py -s <save_dir> [-f <file> -d <directory>]\n")
 	
 
 def main():
