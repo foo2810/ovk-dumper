@@ -1,0 +1,12 @@
+[2018-08-04 17:39:01,714] INFO:Start ovkdump
+[2018-08-04 17:39:01,714] INFO:File save thread start
+[2018-08-04 17:39:05,966] INFO:File save thread exit
+[2018-08-04 17:39:05,966] INFO:Exit ovkdump
+[2018-08-04 17:48:51,418] INFO:Start ovkdump
+[2018-08-04 17:48:51,418] INFO:File save thread start
+[2018-08-04 17:48:55,362] INFO:File save thread exit
+[2018-08-04 17:48:55,362] INFO:ovkdump exiting
+[2018-08-04 18:29:17,365] INFO:Start ovkdump
+[2018-08-04 18:29:17,365] INFO:File save thread start
+[2018-08-04 18:29:21,664] INFO:File save thread exit
+[2018-08-04 18:29:21,664] INFO:ovkdump exiting
