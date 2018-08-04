@@ -22,11 +22,10 @@ python3 ovkdump.py -s <save_dir> [-f <file> -d <dir>]
   -dオプションを使えば、ovkファイルをまとめて処理できます。<br>
   -sオプションで保存先を指定<br>
   -fオプションでovkファイルを指定<br>
-  -dオプションでovkファイルが格納されているディレクトリを指定<br>
+  -dオプションでovkファイルが格納されているディレクトリを指定<br><br>
   
-<pre>
   次のような表記も可。
-</pre>
+  
 ```
 python3 ovkdump.py -s save_dir -d dir1 dir2 -f file1 file2 -d dir3 -f file3
 ```
