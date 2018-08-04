@@ -30,6 +30,7 @@ def main():
 	argc = len(argv)
 	
 	# arguments parse
+	# インデント深すぎぃ
 	option = ""
 	fileList = list()
 	dirList = list()
