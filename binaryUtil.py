@@ -1,8 +1,9 @@
-# Binary Utilities
+# Utilities for byte type data 
 
-# Utility
+# tool
 def byteToIntLE(byte_data):
 	return int.from_bytes(byte_data, "little")
+
 
 class BinaryReader:
 	def __init__(self, bData, selfOffset_):
@@ -21,7 +22,7 @@ class BinaryReader:
 	def shiftPtr(self, size):
 		self.cPtr += size
 	
-	def getCurrentPosition(self):
+	def getCurPos(self):
 		return self.cPtr
 		
 	def getStartOffset(self):
@@ -33,7 +34,17 @@ class BinaryReader:
 	def getSize(self):
 		return self.cPtr - self.selfOffset
 	
-	def checkMagic(self, size):
+	def extreactData(self, startPos, size):
+		save = self.getCurPos()
+
+		self.moveTo(startPos)
+		data = self.readBytes(size)
+
+		self.moveTo(save)
+
+		return data
+	
+	def extreactMagic(self, size):
 		readData = self.readBytes(size)
 		self.shiftPtr(-size)
 		return readData

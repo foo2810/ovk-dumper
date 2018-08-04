@@ -1,7 +1,8 @@
 # ovkdump
 
-from ovkformat import *
-from fileUtil import *
+import sys
+from ovk.ovkformat import *
+from utils.fileUtil import *
 
 class InvalidArgument(Exception):
 	def __init__(self, arg, idx, description=""):
@@ -21,7 +22,7 @@ def usage():
 
 def main():
 	import logging
-	logging.basicConfig(format="[%(asctime)s] %(levelname)s:%(message)s", filename="ovkdump_log.txt", level=logging.DEBUG)
+	logging.basicConfig(format="[%(asctime)s] %(levelname)s:%(message)s", filename="log_ovkdump.txt", level=logging.DEBUG)
 	
 	logging.info("Start ovkdump")
 	
@@ -101,20 +102,21 @@ def main():
 		sys.exit(1)
 	
 	except Exception as e:
-		sys.stderr.write("Raise Unknown error")
-		print(e)
 		logging.info("Raise Unknown error in parsing arguments")
 		logging.info("ovkdump exiting")
+		sys.stderr.write("Raise Unknown error")
+		print(e)
 		
 	
 	if len(fileList) == 0 and len(dirList) == 0:
+		logging.info("ovkdump exiting")
 		usage()
 		sys.exit(1)
 	
 	if saveDir is None:
+		logging.info("ovkdump exiting")
 		usage()
 		sys.stderr.write("Save directory is not selected")
-		logging.info("ovkdump exiting")
 		sys.exit(1)
 	
 	
@@ -177,13 +179,16 @@ def main():
 				saveHandler.saveRequest(oggRawData, savePath)
 			except SaveBufferFull as e:
 				logging.warning("Save buffer is full")
-				sys.stderr.write("Save buffer is full")
 				logging.info("ovkdump exiting")
+				sys.stderr.write("Save buffer is full")
+				saveHandler.quit()
 				sys.exit(1)
 			
 			except Exception as e:
 				logging.warning("Raise unknown error in save thread")
 				logging.info("ovkdump exiting")
+				sys.stderr.write(e)
+				saveHandler.quit()
 				sys.exit(1)
 	
 	saveHandler.quit()

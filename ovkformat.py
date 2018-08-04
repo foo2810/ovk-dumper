@@ -3,15 +3,11 @@
 
 import sys
 from pathlib import Path
-from fileUtil import *
-from binaryUtil import *
 
+# relative import
+from utils.fileUtil import *
+from utils.binaryUtil import *
 
-class NotUnderstandError(Exception):
-	def __init__(self, obj):
-		self.type = type(obj)
-	
-	
 class OVKFormat(BinaryReader):
 	def __init__(self, bData):
 		super().__init__(bData, 0)
@@ -26,12 +22,6 @@ class OVKFormat(BinaryReader):
 		content2 = byteToIntLE(super().readBytes(4))
 		self.oggList.append((self.numOggFile, oggFileSize, oggFileHead, content2))
 		
-		headerEnd = oggFileHead - 1
-		if headerEnd < 0:
-			sys.stderr.write("I understand wrong ovk format...")
-			logging.critical("I understand wrong ovk format")
-			raise NotUnderstandError
-		
 		for i in range(self.numOggFile):
 			content1 = byteToIntLE(super().readBytes(4))
 			oggFileSize = byteToIntLE(super().readBytes(4))
@@ -39,7 +29,7 @@ class OVKFormat(BinaryReader):
 			content2 = byteToIntLE(super().readBytes(4))
 			self.oggList.append((content1, oggFileSize, oggFileHead, content2))
 		
-		#self.pos_debug = super().getCurrentPosition() - 17
+		#self.pos_debug = super().getCurtPos() - 17
 	
 	def __iter__(self):
 		return self
@@ -55,7 +45,7 @@ class OVKFormat(BinaryReader):
 		return item
 	
 	def extractOggRawData(self, meta):
-		save = super().getCurrentPosition()
+		save = super().getCurPos()
 		super().moveTo(meta[2])
 		data = super().readBytes(meta[1])
 		super().moveTo(save)
@@ -153,6 +143,3 @@ def main():
 	
 	#ovk.printHeaders()
 
-
-if __name__ == "__main__":
-	main()

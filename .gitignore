@@ -103,6 +103,9 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-# user add
+# 
 sample_data/
 dump_data/
+
+summer_pockets_ogg_note.txt
+ovkdump_log.txt
