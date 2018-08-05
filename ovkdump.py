@@ -123,15 +123,19 @@ def main():
 	
 	
 	
-	print("Files:")
-	print(fileList)
-	print("Directories:")
-	print(dirList)
+	#print("Files:")
+	#print(fileList)
+	#print("Directories:")
+	#print(dirList)
 	
 	allFileList = list()
 	
 	for file in fileList:
 		path = Path(file)
+		if not path.is_file():
+			logging.info("NotNormallFile or FileNotExist - {}".format(path))
+			continue
+
 		if not path.exists():
 			logging.info("FileNotExist - {}".format(path))
 			continue
@@ -147,8 +151,14 @@ def main():
 		fList = dirPath.glob("*.ovk")
 		allFileList.extend(fList)
 		
-	print("All Files:")
-	print(allFileList)
+	#print("All Files:")
+	#print(allFileList)
+
+	if len(allFileList) == 0:
+		sys.stderr.write("No target file\n")
+		logging.info("No target file")
+		logging.info("ovkdump exiting")
+		sys.exit(1)
 	
 	savePathBase = Path(saveDir)
 	if not savePathBase.is_dir():
