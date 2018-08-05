@@ -8,6 +8,8 @@ from pathlib import Path
 from utils.fileUtil import *
 from utils.binaryUtil import *
 
+# Contentx is unknown bit sequence (x is a number)
+
 class OVKFormat(BinaryReader):
 	def __init__(self, bData):
 		super().__init__(bData, 0)
@@ -19,14 +21,14 @@ class OVKFormat(BinaryReader):
 		
 		oggFileSize = byteToIntLE(super().readBytes(4))
 		oggFileHead = byteToIntLE(super().readBytes(4))
-		content2 = byteToIntLE(super().readBytes(4))
+		content2 = byteToIntLE(super().readBytes(4))	# Unknown data
 		self.oggList.append((self.numOggFile, oggFileSize, oggFileHead, content2))
 		
 		for i in range(self.numOggFile):
-			content1 = byteToIntLE(super().readBytes(4))
+			content1 = byteToIntLE(super().readBytes(4))	#Unknown data
 			oggFileSize = byteToIntLE(super().readBytes(4))
 			oggFileHead = byteToIntLE(super().readBytes(4))
-			content2 = byteToIntLE(super().readBytes(4))
+			content2 = byteToIntLE(super().readBytes(4))	# Unknown data
 			self.oggList.append((content1, oggFileSize, oggFileHead, content2))
 		
 		#self.pos_debug = super().getCurtPos() - 17
@@ -53,10 +55,10 @@ class OVKFormat(BinaryReader):
 	
 	def printHeaders(self):
 		for ogg in self.oggList:
-			print("Content1   :\t" + hex(ogg[0]) + "(" + str(ogg[0]) + ")")
-			print("OggFileSize:\t" + hex(ogg[1]))
-			print("OggFileHead:\t" + hex(ogg[2]))
-			print("Content2   :\t" + hex(ogg[3]) + "(" + str(ogg[3]) + ")")
+			print("Content1   :\t{} ({}) (Unknown)".format(hex(ogg[0]), str(ogg[0])))
+			print("OggFileSize:\t{}".format(hex(ogg[1])))
+			print("OggFileHead:\t{}".format(hex(ogg[2])))
+			print("Content2   :\t{} ({}) (Unknown)".format(hex(ogg[3]), str(ogg[3])))
 			print("---")
 		
 		#print("Header End pos: ", hex(self.pos_debug))
