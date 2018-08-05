@@ -3,7 +3,7 @@
 
 import sys
 from pathlib import *
-sys.path.append(str(Path.cwd().resolve()) + "../")
+sys.path.append(str(Path.cwd().resolve()) + "/../")
 
 from ovk.ovkformat import *
 
@@ -21,7 +21,7 @@ class InvalidArgument(Exception):
 		return self.description
 
 def usage():
-	sys.stderr.write("Usage: python3 readovk.py -s <save_dir> [-f <file> -d <directory>]\n")
+	sys.stderr.write("Usage: python3 readovk.py [-f <file> -d <directory>]\n")
 	
 
 def main():
@@ -127,15 +127,15 @@ def main():
 		fList = dirPath.glob("*.ovk")
 		allFileList.extend(fList)
 		
-	print("All Files:")
-	print(allFileList)
+	#print("All Files:")
+	#print(allFileList)
 	
 	for file_ in allFileList:
 		bdata = file_.read_bytes()
 		ovk = OVKFormat(bdata)
 
-		print("{}:".format(file_))
-		ovk.printContents()
+		print("File path [{}]:".format(file_))
+		ovk.printHeaders()
 		print("******************************\n\n")
 			
 	
